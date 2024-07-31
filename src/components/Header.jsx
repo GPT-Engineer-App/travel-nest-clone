@@ -18,8 +18,8 @@ const Header = () => {
   return (
     <header className="bg-white border-b">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <Link to="/" className="text-[#FF385C] font-bold text-3xl">
-          <img src="/airbnb-logo.png" alt="Airbnb" className="h-8" />
+        <Link to="/" className="flex items-center">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_B%C3%A9lo.svg" alt="Airbnb" className="h-8" />
         </Link>
         <div className="flex items-center space-x-2">
           <Button variant="ghost" className="font-semibold">
