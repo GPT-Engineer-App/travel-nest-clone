@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Globe, Menu, User } from 'lucide-react';
+import { Search, Globe, Menu, User, LogOut } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import LoginModal from './LoginModal';
+import { useAuth } from '../contexts/AuthContext';
 
 const Header = () => {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const { isAuthenticated, logout } = useAuth();
+
+  const handleLoginClick = () => {
+    setIsLoginModalOpen(true);
+  };
+
+  const handleLogout = () => {
+    logout();
+  };
   return (
     <header className="flex items-center justify-between p-4 border-b">
       <Link to="/" className="flex items-center">
@@ -37,7 +49,16 @@ const Header = () => {
           <Menu className="h-4 w-4" />
           <User className="h-4 w-4" />
         </Button>
+        {isAuthenticated ? (
+          <Button variant="ghost" onClick={handleLogout} className="flex items-center space-x-2">
+            <LogOut className="h-4 w-4" />
+            <span>Logout</span>
+          </Button>
+        ) : (
+          <Button variant="ghost" onClick={handleLoginClick}>Login</Button>
+        )}
       </div>
+      <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
     </header>
   );
 };
