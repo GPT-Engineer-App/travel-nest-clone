@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 import { Search, Globe, Menu, User, LogOut, Suitcase } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import LoginModal from './LoginModal';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -45,26 +51,32 @@ const Header = () => {
         <Button variant="ghost" size="icon">
           <Globe className="h-5 w-5" />
         </Button>
-        <Button variant="outline" className="flex items-center space-x-2 rounded-full">
-          <Menu className="h-4 w-4" />
-          <User className="h-4 w-4" />
-        </Button>
-        {isAuthenticated ? (
-          <>
-            <Link to="/my-trips">
-              <Button variant="ghost" className="flex items-center space-x-2">
-                <Suitcase className="h-4 w-4" />
-                <span>My Trips</span>
-              </Button>
-            </Link>
-            <Button variant="ghost" onClick={handleLogout} className="flex items-center space-x-2">
-              <LogOut className="h-4 w-4" />
-              <span>Logout</span>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="flex items-center space-x-2 rounded-full">
+              <Menu className="h-4 w-4" />
+              <User className="h-4 w-4" />
             </Button>
-          </>
-        ) : (
-          <Button variant="ghost" onClick={handleLoginClick}>Login</Button>
-        )}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {isAuthenticated ? (
+              <>
+                <DropdownMenuItem asChild>
+                  <Link to="/my-trips" className="flex items-center space-x-2">
+                    <Suitcase className="h-4 w-4" />
+                    <span>My Trips</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout} className="flex items-center space-x-2">
+                  <LogOut className="h-4 w-4" />
+                  <span>Logout</span>
+                </DropdownMenuItem>
+              </>
+            ) : (
+              <DropdownMenuItem onClick={handleLoginClick}>Login</DropdownMenuItem>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
     </header>
