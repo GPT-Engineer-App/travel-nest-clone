@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Globe, Menu, User, LogOut } from 'lucide-react';
+import { Search, Globe, Menu, User, LogOut, Suitcase } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import LoginModal from './LoginModal';
@@ -50,10 +50,18 @@ const Header = () => {
           <User className="h-4 w-4" />
         </Button>
         {isAuthenticated ? (
-          <Button variant="ghost" onClick={handleLogout} className="flex items-center space-x-2">
-            <LogOut className="h-4 w-4" />
-            <span>Logout</span>
-          </Button>
+          <>
+            <Link to="/my-trips">
+              <Button variant="ghost" className="flex items-center space-x-2">
+                <Suitcase className="h-4 w-4" />
+                <span>My Trips</span>
+              </Button>
+            </Link>
+            <Button variant="ghost" onClick={handleLogout} className="flex items-center space-x-2">
+              <LogOut className="h-4 w-4" />
+              <span>Logout</span>
+            </Button>
+          </>
         ) : (
           <Button variant="ghost" onClick={handleLoginClick}>Login</Button>
         )}
